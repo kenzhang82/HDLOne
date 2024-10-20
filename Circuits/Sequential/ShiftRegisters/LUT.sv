@@ -1,4 +1,4 @@
-module LUT
+module top_module
 (
 	input clk,
 	input enable,
@@ -6,15 +6,14 @@ module LUT
 	input A, B, C,
 	output Z
 );
-
-	reg [0:7] mem = 8'h0;
+	reg [7:0] mem; 
 
 	always @(posedge clk) begin
 		if (enable) begin
-      mem <= {S, mem[1:7]};
+			mem <= {mem[6:0], S}; 
 		end
 	end
-
-	assign Z = mem[{A,B,C}];
+	
+	assign Z = mem[{A, B, C}];
 
 endmodule
